@@ -1,8 +1,18 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function About() {
   return (
     <section id="about" className="py-24 px-6">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <p className="text-brand-400 text-sm font-medium tracking-wider uppercase mb-4">
             About
           </p>
@@ -11,9 +21,15 @@ export default function About() {
             <br />
             <span className="gradient-text">AI and software</span>
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="glass rounded-2xl p-8 md:p-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="glass rounded-2xl p-8 md:p-12"
+        >
           <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
             <p>
               I&apos;m a final-year B.Tech Computer Science student at VIT Chennai
@@ -56,7 +72,7 @@ export default function About() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
