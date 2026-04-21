@@ -32,7 +32,7 @@ export default function Hero() {
           Hi, I&apos;m Jesse
           <br />
           <span className="gradient-text relative">
-            I Build With AI
+            Full-Stack Engineer
             <span className="absolute -inset-2 bg-brand-500/15 blur-3xl rounded-full -z-10" />
           </span>
         </motion.h1>
@@ -43,9 +43,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Software developer specializing in AI/ML and full-stack web apps.
-          I turn ideas into working products &mdash; from research papers to
-          production deployments.
+          I build production web apps end-to-end &mdash; from database design
+          and REST APIs to responsive React UIs. TypeScript, Next.js, Node.js,
+          PostgreSQL, MongoDB.
         </motion.p>
 
         <motion.div
@@ -75,11 +75,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto"
+          className="mt-16 grid grid-cols-4 gap-6 max-w-2xl mx-auto"
         >
           {[
-            { value: "9+", label: "Projects Shipped" },
+            { value: "12+", label: "Projects Shipped" },
             { value: "IEEE", label: "Published Research" },
+            { value: "5+", label: "Full-Stack Apps" },
             { value: "$30K", label: "Hackathon Pool" },
           ].map((m) => (
             <div key={m.label} className="group">

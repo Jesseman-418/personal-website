@@ -17,9 +17,9 @@ export default function About() {
             About
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-            Building at the intersection of
+            Full-stack engineer who
             <br />
-            <span className="gradient-text">AI and software</span>
+            <span className="gradient-text">ships end-to-end</span>
           </h2>
         </motion.div>
 
@@ -33,35 +33,40 @@ export default function About() {
           <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
             <p>
               I&apos;m a final-year B.Tech Computer Science student at VIT Chennai
-              who builds things with code. My focus areas are{" "}
+              who builds{" "}
               <span className="text-gray-200 font-medium">
-                AI/ML, full-stack web development, and automation
+                production web applications from database to deployment
               </span>
-              .
+              . My stack centers on TypeScript, Next.js, Node.js, and both SQL
+              and NoSQL databases.
             </p>
             <p>
-              I&apos;ve published research in{" "}
-              <span className="text-gray-200 font-medium">IEEE Xplore</span> on
-              spatial algorithms for contact tracing, built AI environments for
-              hackathons backed by{" "}
+              I&apos;ve built{" "}
+              <span className="text-gray-200 font-medium">
+                full-stack apps with auth systems, REST APIs, payment tracking,
+                and real-time dashboards
+              </span>
+              . On the backend, I&apos;ve implemented JWT auth from scratch,
+              OAuth 2.0 servers, API gateways with rate limiting, and database
+              schemas with Prisma and Mongoose.
+            </p>
+            <p>
+              Beyond web dev, I&apos;ve published research in{" "}
+              <span className="text-gray-200 font-medium">IEEE Xplore</span>,
+              built AI environments for{" "}
               <span className="text-gray-200 font-medium">
                 Meta &amp; Scaler ($30K prize pool)
               </span>
-              , and shipped full-stack apps from Kanban boards to blockchain
-              voting systems.
-            </p>
-            <p>
-              I operate with speed &mdash; I use AI tools as force multipliers to
-              go from idea to deployed product fast. Currently looking for
-              opportunities where I can build impactful software at scale.
+              , and work with PyTorch for ML research. I operate fast and ship
+              working software.
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 pt-8 border-t border-white/5">
             {[
               { label: "University", value: "VIT Chennai" },
-              { label: "Degree", value: "B.Tech CS" },
-              { label: "Focus", value: "AI/ML + Web" },
+              { label: "Degree", value: "B.Tech CSE" },
+              { label: "Focus", value: "Full-Stack + AI" },
               { label: "Location", value: "India" },
             ].map((item) => (
               <div key={item.label} className="text-center">

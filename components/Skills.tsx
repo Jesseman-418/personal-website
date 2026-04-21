@@ -4,47 +4,69 @@ import { motion } from "framer-motion";
 
 const skillCategories = [
   {
-    title: "AI / Machine Learning",
-    skills: [
-      "PyTorch",
-      "Vision Transformers",
-      "Adversarial ML",
-      "Reinforcement Learning",
-      "Hugging Face",
-      "Gradio",
-    ],
-  },
-  {
-    title: "Backend",
-    skills: [
-      "Python",
-      "FastAPI",
-      "Node.js",
-      "Prisma",
-      "SQLite",
-      "REST APIs",
-    ],
-  },
-  {
     title: "Frontend",
     skills: [
       "TypeScript",
       "React",
       "Next.js",
       "Tailwind CSS",
-      "React Native",
       "HTML/CSS",
+      "Framer Motion",
     ],
   },
   {
-    title: "Tools & Platforms",
+    title: "Backend",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "Python",
+      "FastAPI",
+      "REST APIs",
+      "GraphQL",
+    ],
+  },
+  {
+    title: "Databases & Auth",
+    skills: [
+      "PostgreSQL",
+      "MongoDB",
+      "Prisma ORM",
+      "Mongoose",
+      "JWT / OAuth 2.0",
+      "NextAuth.js",
+    ],
+  },
+  {
+    title: "DevOps & Tools",
     skills: [
       "Git / GitHub",
+      "Docker",
       "Vercel",
-      "HuggingFace Spaces",
-      "Claude Code",
       "Linux",
-      "Blockchain / Web3",
+      "CI/CD",
+      "Redis",
+    ],
+  },
+  {
+    title: "AI / Machine Learning",
+    skills: [
+      "PyTorch",
+      "Vision Transformers",
+      "Hugging Face",
+      "Reinforcement Learning",
+      "Gradio",
+      "LLM APIs",
+    ],
+  },
+  {
+    title: "Architecture",
+    skills: [
+      "Microservices",
+      "Rate Limiting",
+      "API Gateway Design",
+      "RBAC / ABAC",
+      "System Design",
+      "Agile / Scrum",
     ],
   },
 ];
@@ -64,20 +86,20 @@ export default function Skills() {
             Skills
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-            What I work
+            Full-stack
             <br />
-            <span className="gradient-text">with</span>
+            <span className="gradient-text">toolkit</span>
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, i) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
               className="group glass glass-hover rounded-2xl p-8 transition-all duration-300"
             >

@@ -4,14 +4,34 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
-    tag: "Hackathon — Milan AI Week",
-    title: "ShadowOS",
+    tag: "Full-Stack",
+    title: "SplitPay — Expense Splitting App",
     description:
-      "Autonomous multi-agent business system for solo operators. Runs outreach, content creation, and ops with coordinated AI agents. Built for AI Agent Olympics at Milan AI Week 2026.",
-    tech: ["Next.js", "Python", "FastAPI", "Gemini API", "Multi-Agent"],
-    github: "https://github.com/Jesseman-418/ShadowOS",
+      "Full-stack expense splitting app with group management, smart balance calculation, and settlement tracking. NextAuth credentials auth, Prisma ORM, REST API with full CRUD.",
+    tech: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "NextAuth", "REST API"],
+    github: "https://github.com/Jesseman-418/splitpay",
     featured: true,
-    status: "building",
+    highlight: true,
+  },
+  {
+    tag: "Full-Stack",
+    title: "QuickInvoice — Invoice & Payment Tracker",
+    description:
+      "Invoice generator with client management, line-item calculations, payment status tracking, and revenue dashboard. Custom JWT auth with httpOnly cookies, Mongoose ODM.",
+    tech: ["Next.js", "TypeScript", "MongoDB", "Mongoose", "JWT", "REST API"],
+    github: "https://github.com/Jesseman-418/quickinvoice",
+    featured: true,
+    highlight: true,
+  },
+  {
+    tag: "Full-Stack",
+    title: "DevHub — API Key Management Platform",
+    description:
+      "Developer platform with API key generation, per-key rate limiting (sliding window), usage analytics dashboard, and sample API endpoints. Keys stored hashed, shown once on creation.",
+    tech: ["Next.js", "TypeScript", "Prisma", "SQLite", "NextAuth", "Rate Limiting"],
+    github: "https://github.com/Jesseman-418/devhub",
+    featured: true,
+    highlight: true,
   },
   {
     tag: "Security",
@@ -30,6 +50,16 @@ const projects = [
     tech: ["TypeScript", "Node.js", "JWT", "RBAC", "ABAC"],
     github: "https://github.com/Jesseman-418/zero-trust-api-gateway",
     featured: true,
+  },
+  {
+    tag: "Hackathon — Milan AI Week",
+    title: "ShadowOS",
+    description:
+      "Autonomous multi-agent business system for solo operators. Runs outreach, content creation, and ops with coordinated AI agents. Built for AI Agent Olympics at Milan AI Week 2026.",
+    tech: ["Next.js", "Python", "FastAPI", "Gemini API", "Multi-Agent"],
+    github: "https://github.com/Jesseman-418/ShadowOS",
+    featured: true,
+    status: "building",
   },
   {
     tag: "Hackathon — Scaler x Meta",
@@ -57,15 +87,6 @@ const projects = [
       "Compared GELU, ReLU, SiLU, Mish across ViT, CaiT, and Swin Transformers. 30 experiments, 93.68% CIFAR-10 accuracy. CaiT most stable, Tanh catastrophic on Swin.",
     tech: ["Python", "PyTorch", "Vision Transformers", "CIFAR-10"],
     github: "https://github.com/Jesseman-418/vit-activation-functions-capstone",
-    featured: true,
-  },
-  {
-    tag: "Full-Stack",
-    title: "Pollchain — Blockchain Voting",
-    description:
-      "Decentralized voting app on blockchain. MetaMask wallet integration, poll creation, live results, dark glassmorphism UI.",
-    tech: ["TypeScript", "Blockchain", "MetaMask", "Next.js"],
-    github: "https://github.com/Jesseman-418/Pollchain-frontend",
   },
   {
     tag: "Full-Stack",
@@ -74,6 +95,14 @@ const projects = [
       "Full-stack Kanban board with drag-and-drop. Next.js 14, Prisma ORM, SQLite. Dark theme with smooth interactions.",
     tech: ["TypeScript", "Next.js", "Prisma", "SQLite"],
     github: "https://github.com/Jesseman-418/taskflow",
+  },
+  {
+    tag: "Full-Stack",
+    title: "Pollchain — Blockchain Voting",
+    description:
+      "Decentralized voting app on blockchain. MetaMask wallet integration, poll creation, live results, dark glassmorphism UI.",
+    tech: ["TypeScript", "Blockchain", "MetaMask", "Next.js"],
+    github: "https://github.com/Jesseman-418/Pollchain-frontend",
   },
   {
     tag: "ML Research",
@@ -100,12 +129,13 @@ export default function Projects() {
             Projects
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-            Things I&apos;ve
+            Full-stack apps I&apos;ve
             <br />
-            <span className="gradient-text">built</span>
+            <span className="gradient-text">built & shipped</span>
           </h2>
           <p className="text-gray-400 text-lg">
-            From hackathon entries to published research to production apps.
+            Production apps with auth, databases, APIs, and polished UIs.
+            Plus research, hackathons, and security tools.
           </p>
         </motion.div>
 
@@ -119,11 +149,22 @@ export default function Projects() {
               transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
               className={`group glass rounded-2xl p-8 transition-all duration-300 flex flex-col relative overflow-hidden ${
-                project.featured ? "border-brand-500/10" : ""
+                project.highlight
+                  ? "border-brand-500/20 ring-1 ring-brand-500/10"
+                  : project.featured
+                  ? "border-brand-500/10"
+                  : ""
               }`}
             >
               {/* Hover glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-brand-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+              {/* New badge for highlighted projects */}
+              {project.highlight && (
+                <div className="absolute top-4 right-4 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-brand-300 border border-brand-500/30">
+                  New
+                </div>
+              )}
 
               <div className="relative z-10 flex flex-col flex-grow">
                 <div className="flex items-center gap-2 mb-4">

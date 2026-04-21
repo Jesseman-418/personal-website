@@ -5,31 +5,33 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Jesse Man | Software Developer & AI Builder",
+  title: "Jesse Man | Full-Stack Engineer",
   description:
-    "Software developer specializing in AI/ML, full-stack web development, and building tools that solve real problems. B.Tech CS at VIT Chennai.",
+    "Full-stack engineer building production web apps with Next.js, TypeScript, Node.js, PostgreSQL, and MongoDB. AI/ML research published in IEEE. B.Tech CS at VIT Chennai.",
   keywords: [
-    "software developer",
-    "AI",
-    "machine learning",
-    "full-stack",
-    "Python",
-    "TypeScript",
+    "full-stack engineer",
+    "software engineer",
     "Next.js",
-    "PyTorch",
+    "TypeScript",
+    "Node.js",
+    "React",
+    "PostgreSQL",
+    "MongoDB",
+    "Python",
+    "REST API",
   ],
   openGraph: {
-    title: "Jesse Man | Software Developer & AI Builder",
+    title: "Jesse Man | Full-Stack Engineer",
     description:
-      "Software developer specializing in AI/ML, full-stack web development, and building tools that solve real problems.",
+      "Full-stack engineer building production web apps with Next.js, TypeScript, Node.js, and modern databases.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jesse Man | Software Developer & AI Builder",
+    title: "Jesse Man | Full-Stack Engineer",
     description:
-      "Software developer specializing in AI/ML, full-stack web development, and building tools that solve real problems.",
+      "Full-stack engineer building production web apps with Next.js, TypeScript, Node.js, and modern databases.",
   },
   robots: { index: true, follow: true },
 };
