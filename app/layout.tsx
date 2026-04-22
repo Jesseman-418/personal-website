@@ -1,13 +1,26 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-handwritten",
+});
 
 export const metadata: Metadata = {
-  title: "Jesse Man | Full-Stack Engineer",
+  title: "Jesse Man | Full-Stack Engineer & AI Builder",
   description:
-    "Full-stack engineer building production web apps with Next.js, TypeScript, Node.js, PostgreSQL, and MongoDB. AI/ML research published in IEEE. B.Tech CS at VIT Chennai.",
+    "Full-stack engineer building production web apps with Next.js, TypeScript, Node.js, PostgreSQL, and MongoDB. AI/ML research published in IEEE. I build things that work.",
   keywords: [
     "full-stack engineer",
     "software engineer",
@@ -15,23 +28,21 @@ export const metadata: Metadata = {
     "TypeScript",
     "Node.js",
     "React",
-    "PostgreSQL",
-    "MongoDB",
-    "Python",
-    "REST API",
+    "AI",
+    "machine learning",
   ],
   openGraph: {
-    title: "Jesse Man | Full-Stack Engineer",
+    title: "Jesse Man | Full-Stack Engineer & AI Builder",
     description:
-      "Full-stack engineer building production web apps with Next.js, TypeScript, Node.js, and modern databases.",
+      "Full-stack engineer. AI builder. Ships production apps end-to-end.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jesse Man | Full-Stack Engineer",
+    title: "Jesse Man | Full-Stack Engineer & AI Builder",
     description:
-      "Full-stack engineer building production web apps with Next.js, TypeScript, Node.js, and modern databases.",
+      "Full-stack engineer. AI builder. Ships production apps end-to-end.",
   },
   robots: { index: true, follow: true },
 };
@@ -40,8 +51,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="antialiased">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${caveat.variable} antialiased`}>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

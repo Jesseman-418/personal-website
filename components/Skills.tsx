@@ -6,7 +6,8 @@ import { useState } from "react";
 const skillCategories = [
   {
     title: "Frontend",
-    icon: "M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18",
+    icon: "◆",
+    color: "lime",
     skills: [
       { name: "TypeScript", level: 92 },
       { name: "React", level: 90 },
@@ -18,7 +19,8 @@ const skillCategories = [
   },
   {
     title: "Backend",
-    icon: "M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z",
+    icon: "▸",
+    color: "cyan",
     skills: [
       { name: "Node.js", level: 88 },
       { name: "Express.js", level: 85 },
@@ -29,8 +31,9 @@ const skillCategories = [
     ],
   },
   {
-    title: "Databases & Auth",
-    icon: "M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125",
+    title: "Databases",
+    icon: "⬡",
+    color: "purple",
     skills: [
       { name: "PostgreSQL", level: 85 },
       { name: "MongoDB", level: 83 },
@@ -41,8 +44,9 @@ const skillCategories = [
     ],
   },
   {
-    title: "DevOps & Tools",
-    icon: "M11.42 15.17l-5.1-5.1m0 0L11.42 4.97m-5.1 5.1h12.77",
+    title: "DevOps",
+    icon: "⚡",
+    color: "lime",
     skills: [
       { name: "Git / GitHub", level: 93 },
       { name: "Docker", level: 75 },
@@ -53,8 +57,9 @@ const skillCategories = [
     ],
   },
   {
-    title: "AI / Machine Learning",
-    icon: "M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z",
+    title: "AI / ML",
+    icon: "◇",
+    color: "cyan",
     skills: [
       { name: "PyTorch", level: 85 },
       { name: "Vision Transformers", level: 80 },
@@ -66,7 +71,8 @@ const skillCategories = [
   },
   {
     title: "Architecture",
-    icon: "M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21",
+    icon: "▣",
+    color: "purple",
     skills: [
       { name: "Microservices", level: 78 },
       { name: "Rate Limiting", level: 85 },
@@ -78,22 +84,31 @@ const skillCategories = [
   },
 ];
 
-function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
+const colorClasses: Record<string, { text: string; bg: string; border: string; bar: string }> = {
+  lime: { text: "text-neon-lime/80", bg: "bg-neon-lime/5", border: "border-neon-lime/15", bar: "from-neon-lime/60 to-neon-lime/30" },
+  cyan: { text: "text-neon-cyan/80", bg: "bg-neon-cyan/5", border: "border-neon-cyan/15", bar: "from-neon-cyan/60 to-neon-cyan/30" },
+  purple: { text: "text-neon-purple/80", bg: "bg-neon-purple/5", border: "border-neon-purple/15", bar: "from-neon-purple/60 to-neon-purple/30" },
+};
+
+function SkillBar({ name, level, delay, color }: { name: string; level: number; delay: number; color: string }) {
+  const colors = colorClasses[color];
   return (
     <div className="group">
       <div className="flex justify-between items-center mb-1.5">
-        <span className="text-sm text-gray-300 group-hover:text-white transition-colors">{name}</span>
-        <span className="text-xs text-gray-500 font-mono">{level}%</span>
+        <span className="text-sm text-gray-400 group-hover:text-white transition-colors font-mono text-xs tracking-wider">{name}</span>
+        <span className={`text-[10px] font-mono ${colors.text}`}>{level}%</span>
       </div>
-      <div className="h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+      <div className="h-1 bg-white/[0.03] rounded-full overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay, ease: "easeOut" }}
-          className="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-400 relative"
+          className={`h-full rounded-full bg-gradient-to-r ${colors.bar} relative`}
         >
           <div className="absolute inset-0 animate-shimmer" />
+          {/* End pip */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white/30" />
         </motion.div>
       </div>
     </div>
@@ -104,7 +119,9 @@ export default function Skills() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section id="skills" className="py-24 px-6">
+    <section id="skills" className="py-24 px-6 relative">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-neon-purple/10 to-transparent" />
+
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -113,83 +130,90 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-brand-400 text-sm font-medium tracking-wider uppercase mb-4">
-            Skills
+          <p className="text-neon-lime/60 text-xs font-mono tracking-[0.3em] uppercase mb-4">
+            {"// "}Skills
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-2">
             Full-stack
-            <br />
-            <span className="gradient-text">toolkit</span>
+          </h2>
+          <h2 className="text-3xl sm:text-4xl font-bold">
+            <span className="gradient-text text-glow-lime">toolkit</span>
           </h2>
         </motion.div>
 
-        {/* Tab navigation — mobile scrollable */}
+        {/* Tab navigation */}
         <div className="flex gap-2 mb-10 overflow-x-auto pb-2 scrollbar-none justify-start lg:justify-center">
-          {skillCategories.map((cat, i) => (
-            <button
-              key={cat.title}
-              onClick={() => setActiveTab(i)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
-                activeTab === i
-                  ? "bg-brand-500/10 text-brand-400 border border-brand-500/20 box-glow"
-                  : "text-gray-500 hover:text-gray-300 glass"
-              }`}
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={cat.icon} />
-              </svg>
-              {cat.title}
-            </button>
-          ))}
+          {skillCategories.map((cat, i) => {
+            const colors = colorClasses[cat.color];
+            return (
+              <button
+                key={cat.title}
+                onClick={() => setActiveTab(i)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-mono transition-all whitespace-nowrap tracking-wider ${
+                  activeTab === i
+                    ? `${colors.bg} ${colors.text} border ${colors.border} shadow-[0_0_15px_rgba(0,255,0,0.03)]`
+                    : "text-gray-600 hover:text-gray-400 glass border border-transparent"
+                }`}
+              >
+                <span>{cat.icon}</span>
+                {cat.title}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Active category - skill bars */}
+        {/* Active category */}
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="glass rounded-2xl p-8 md:p-10 max-w-2xl mx-auto gradient-border"
+          className="glass rounded-xl p-8 md:p-10 max-w-2xl mx-auto gradient-border animate-gradient-border relative"
         >
-          <div className="space-y-5">
+          {/* Corner markers */}
+          <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-neon-lime/10 rounded-tl" />
+          <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-neon-lime/10 rounded-br" />
+
+          <div className="space-y-4">
             {skillCategories[activeTab].skills.map((skill, i) => (
-              <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.08} />
+              <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.08} color={skillCategories[activeTab].color} />
             ))}
           </div>
         </motion.div>
 
-        {/* All skills grid — compact view */}
+        {/* Skills grid */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-3"
         >
-          {skillCategories.map((cat, i) => (
-            <motion.div
-              key={cat.title}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group glass glass-hover rounded-xl p-5 transition-all duration-300 cursor-pointer"
-              onClick={() => setActiveTab(i)}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <svg className="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={cat.icon} />
-                </svg>
-                <h3 className="text-xs font-semibold text-brand-400 uppercase tracking-wider">
-                  {cat.title}
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {cat.skills.map((s) => (
-                  <span key={s.name} className="text-[11px] text-gray-500 group-hover:text-gray-400 transition-colors">
-                    {s.name}{cat.skills.indexOf(s) < cat.skills.length - 1 ? " ·" : ""}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+          {skillCategories.map((cat, i) => {
+            const colors = colorClasses[cat.color];
+            return (
+              <motion.div
+                key={cat.title}
+                whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                className={`group glass rounded-lg p-4 transition-all duration-300 border border-transparent hover:${colors.border}`}
+                onClick={() => setActiveTab(i)}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={`${colors.text} text-sm`}>{cat.icon}</span>
+                  <h3 className={`text-[10px] font-mono font-bold ${colors.text} uppercase tracking-[0.2em]`}>
+                    {cat.title}
+                  </h3>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {cat.skills.map((s) => (
+                    <span key={s.name} className="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors font-mono">
+                      {s.name}{cat.skills.indexOf(s) < cat.skills.length - 1 ? " ·" : ""}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
