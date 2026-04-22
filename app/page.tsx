@@ -10,22 +10,17 @@ import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CursorGlow from "@/components/CursorGlow";
-import MatrixRain from "@/components/MatrixRain";
+
 
 export default function Home() {
   return (
     <main className="min-h-screen relative">
-      {/* Layer 0: Matrix rain canvas */}
-      <MatrixRain />
-
-      {/* Layer 1: Noise texture */}
+      {/* Noise texture */}
       <div className="fixed inset-0 noise-overlay pointer-events-none z-[2]" />
 
-      {/* Layer 5: Global floating orbs */}
-      <div className="fixed top-[10%] left-[5%] w-[500px] h-[500px] bg-neon-lime/[0.04] rounded-full blur-[150px] pointer-events-none animate-float-slow z-[1]" />
-      <div className="fixed bottom-[20%] right-[10%] w-[400px] h-[400px] bg-neon-cyan/[0.03] rounded-full blur-[120px] pointer-events-none animate-float-delayed z-[1]" />
-      <div className="fixed top-[60%] left-[50%] w-[300px] h-[300px] bg-neon-purple/[0.03] rounded-full blur-[100px] pointer-events-none animate-float z-[1]" />
-      <div className="fixed top-[30%] right-[30%] w-[200px] h-[200px] bg-neon-pink/[0.02] rounded-full blur-[80px] pointer-events-none animate-float-delayed z-[1]" />
+      {/* Floating orbs — reduced blur for perf */}
+      <div className="fixed top-[10%] left-[5%] w-[300px] h-[300px] bg-neon-lime/[0.03] rounded-full blur-[60px] pointer-events-none animate-float-slow z-[1]" />
+      <div className="fixed bottom-[20%] right-[10%] w-[250px] h-[250px] bg-neon-cyan/[0.02] rounded-full blur-[50px] pointer-events-none animate-float-delayed z-[1]" />
 
       {/* Layer 6: Corner decorations */}
       <div className="fixed top-0 left-0 w-32 h-32 border-l border-t border-neon-lime/10 pointer-events-none z-[3]" />
