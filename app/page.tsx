@@ -18,16 +18,7 @@ export default function Home() {
       {/* Layer 0: Matrix rain canvas */}
       <MatrixRain />
 
-      {/* Layer 1: Grid background */}
-      <div className="fixed inset-0 grid-bg opacity-50 pointer-events-none z-[1]" />
-
-      {/* Layer 2: Hex grid overlay */}
-      <div className="fixed inset-0 hex-grid opacity-30 pointer-events-none z-[1]" />
-
-      {/* Layer 3: CRT scanlines */}
-      <div className="fixed inset-0 crt-lines z-[2] pointer-events-none" />
-
-      {/* Layer 4: Noise texture */}
+      {/* Layer 1: Noise texture */}
       <div className="fixed inset-0 noise-overlay pointer-events-none z-[2]" />
 
       {/* Layer 5: Global floating orbs */}

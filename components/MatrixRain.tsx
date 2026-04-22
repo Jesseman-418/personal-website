@@ -2,8 +2,16 @@
 
 import { useEffect, useRef } from "react";
 
+const SYMBOLS = [
+  "0", "1", "{}", "[]", "<>", "=>", "//", "&&", "||", "!=",
+  "++", "--", "::", "**", "~/", ">>", "<<", ";;", "%%", "##",
+  "λ", "∞", "Σ", "Δ", "π", "θ", "∅", "∈", "⊂", "∀",
+  "0x", "FF", "00", "1A", "DB", "C4", "A0", "E7", "B2", "3F",
+];
+
 export default function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,50 +24,82 @@ export default function MatrixRain() {
       canvas.height = window.innerHeight;
     };
     resize();
-    window.addEventListener("resize", resize);
 
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン{}[]<>/=;:";
-    const fontSize = 14;
-    const columns = Math.floor(canvas.width / fontSize);
-    const drops: number[] = new Array(columns).fill(1).map(() => Math.random() * -100);
+    const cellSize = 48;
+    let cols = Math.ceil(canvas.width / cellSize);
+    let rows = Math.ceil(canvas.height / cellSize);
+
+    // Pre-assign a random symbol to each cell
+    let grid: string[] = [];
+    const fillGrid = () => {
+      cols = Math.ceil(canvas.width / cellSize);
+      rows = Math.ceil(canvas.height / cellSize);
+      grid = new Array(cols * rows).fill("").map(() =>
+        SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]
+      );
+    };
+    fillGrid();
+
+    // Slowly rotate symbols
+    const rotateInterval = setInterval(() => {
+      const idx = Math.floor(Math.random() * grid.length);
+      grid[idx] = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+    }, 200);
+
+    const handleResize = () => {
+      resize();
+      fillGrid();
+    };
+    window.addEventListener("resize", handleResize);
+
+    const handleMouse = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener("mousemove", handleMouse);
+
+    const GLOW_RADIUS = 220;
 
     const draw = () => {
-      ctx.fillStyle = "rgba(3, 3, 3, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#00FF0015";
-      ctx.font = `${fontSize}px monospace`;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "11px monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
 
-      for (let i = 0; i < drops.length; i++) {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        const x = i * fontSize;
-        const y = drops[i] * fontSize;
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
 
-        if (Math.random() > 0.98) {
-          ctx.fillStyle = "#00FF0040";
-        } else {
-          ctx.fillStyle = "#00FF0010";
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cx = col * cellSize + cellSize / 2;
+          const cy = row * cellSize + cellSize / 2;
+          const dist = Math.sqrt((cx - mx) ** 2 + (cy - my) ** 2);
+
+          if (dist < GLOW_RADIUS) {
+            const intensity = 1 - dist / GLOW_RADIUS;
+            const alpha = intensity * intensity * 0.35;
+            ctx.fillStyle = `rgba(0, 255, 0, ${alpha})`;
+            ctx.fillText(grid[row * cols + col], cx, cy);
+          }
         }
-
-        ctx.fillText(char, x, y);
-
-        if (y > canvas.height && Math.random() > 0.98) {
-          drops[i] = 0;
-        }
-        drops[i]++;
       }
+
+      requestAnimationFrame(draw);
     };
 
-    const interval = setInterval(draw, 50);
+    const raf = requestAnimationFrame(draw);
+
     return () => {
-      clearInterval(interval);
-      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(raf);
+      clearInterval(rotateInterval);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouse);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none opacity-40"
+      className="fixed inset-0 z-[1] pointer-events-none"
     />
   );
 }

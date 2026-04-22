@@ -29,27 +29,14 @@ export default function CursorGlow() {
   }
 
   return (
-    <>
-      {/* Main cursor dot */}
-      <div
-        className="fixed top-0 left-0 z-[9999] pointer-events-none mix-blend-screen transition-opacity duration-300"
-        style={{
-          transform: `translate(${pos.x - 6}px, ${pos.y - 6}px)`,
-          opacity: visible ? 1 : 0,
-        }}
-      >
-        <div className="w-3 h-3 rounded-full bg-neon-lime shadow-[0_0_10px_#00FF00,0_0_20px_#00FF0080]" />
-      </div>
-      {/* Glow trail */}
-      <div
-        className="fixed top-0 left-0 z-[9998] pointer-events-none mix-blend-screen transition-all duration-700 ease-out"
-        style={{
-          transform: `translate(${pos.x - 150}px, ${pos.y - 150}px)`,
-          opacity: visible ? 0.15 : 0,
-        }}
-      >
-        <div className="w-[300px] h-[300px] rounded-full bg-neon-lime blur-[80px]" />
-      </div>
-    </>
+    <div
+      className="fixed top-0 left-0 z-[9999] pointer-events-none transition-opacity duration-300"
+      style={{
+        transform: `translate(${pos.x - 5}px, ${pos.y - 5}px)`,
+        opacity: visible ? 1 : 0,
+      }}
+    >
+      <div className="w-2.5 h-2.5 rounded-full bg-neon-lime shadow-[0_0_6px_#00FF00,0_0_12px_#00FF0060]" />
+    </div>
   );
 }
