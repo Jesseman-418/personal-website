@@ -95,13 +95,11 @@ function AnimatedCounter({ value, label }: { value: string; label: string }) {
       viewport={{ once: true }}
       onViewportEnter={() => setStarted(true)}
     >
-      <div className="text-3xl font-bold gradient-text text-glow-lime transition-all font-mono">
+      <div className="text-3xl font-bold gradient-text transition-all font-mono">
         {isNum ? count : value}
         {isNum && value.includes("+") ? "+" : ""}
       </div>
       <div className="text-[10px] text-gray-600 mt-1 uppercase tracking-[0.25em] font-mono">{label}</div>
-      {/* Underline accent */}
-      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-px bg-gradient-to-r from-transparent via-neon-lime/20 to-transparent" />
     </motion.div>
   );
 }
@@ -150,12 +148,7 @@ export default function Hero() {
               className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-2"
             >
               Hi, I&apos;m{" "}
-              <span className="relative inline-block">
-                Jesse
-                {/* Glitch layers */}
-                <span className="absolute inset-0 text-neon-cyan/20 translate-x-[2px] translate-y-[-2px] pointer-events-none" aria-hidden>Jesse</span>
-                <span className="absolute inset-0 text-neon-pink/20 translate-x-[-2px] translate-y-[2px] pointer-events-none" aria-hidden>Jesse</span>
-              </span>
+              <span className="gradient-text">Jesse</span>
             </motion.h1>
 
             <motion.div
@@ -165,12 +158,12 @@ export default function Hero() {
               className="mb-6"
             >
               <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold">
-                <span className="gradient-text text-glow-lime">
+                <span className="gradient-text">
                   Full-Stack
                 </span>
               </h2>
               <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold">
-                <span className="gradient-text-alt text-glow-cyan">
+                <span className="gradient-text-alt">
                   Engineer
                 </span>
               </h2>

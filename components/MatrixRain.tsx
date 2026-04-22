@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 
 const SYMBOLS = [
   "0", "1", "{}", "[]", "<>", "=>", "//", "&&", "||", "!=",
-  "++", "--", "::", "**", "~/", ">>", "<<", ";;", "%%", "##",
-  "λ", "∞", "Σ", "Δ", "π", "θ", "∅", "∈", "⊂", "∀",
+  "++", "--", "::", "**", ">>", "<<", ";;",
+  "λ", "∞", "Σ", "Δ", "π", "θ", "∅",
   "0x", "FF", "00", "1A", "DB", "C4", "A0", "E7", "B2", "3F",
 ];
 
@@ -25,12 +25,11 @@ export default function MatrixRain() {
     };
     resize();
 
-    const cellSize = 48;
-    let cols = Math.ceil(canvas.width / cellSize);
-    let rows = Math.ceil(canvas.height / cellSize);
-
-    // Pre-assign a random symbol to each cell
+    const cellSize = 56;
+    let cols = 0;
+    let rows = 0;
     let grid: string[] = [];
+
     const fillGrid = () => {
       cols = Math.ceil(canvas.width / cellSize);
       rows = Math.ceil(canvas.height / cellSize);
@@ -40,16 +39,13 @@ export default function MatrixRain() {
     };
     fillGrid();
 
-    // Slowly rotate symbols
+    // Slowly rotate a few symbols
     const rotateInterval = setInterval(() => {
       const idx = Math.floor(Math.random() * grid.length);
       grid[idx] = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
-    }, 200);
+    }, 300);
 
-    const handleResize = () => {
-      resize();
-      fillGrid();
-    };
+    const handleResize = () => { resize(); fillGrid(); };
     window.addEventListener("resize", handleResize);
 
     const handleMouse = (e: MouseEvent) => {
@@ -57,9 +53,18 @@ export default function MatrixRain() {
     };
     window.addEventListener("mousemove", handleMouse);
 
-    const GLOW_RADIUS = 220;
+    const GLOW_RADIUS = 200;
+    const GLOW_R_SQ = GLOW_RADIUS * GLOW_RADIUS;
+    let lastDraw = 0;
 
-    const draw = () => {
+    const draw = (time: number) => {
+      // Throttle to ~24fps
+      if (time - lastDraw < 42) {
+        raf = requestAnimationFrame(draw);
+        return;
+      }
+      lastDraw = time;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.font = "11px monospace";
       ctx.textAlign = "center";
@@ -68,25 +73,34 @@ export default function MatrixRain() {
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
 
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
+      // Only check cells in the bounding box around cursor
+      const minCol = Math.max(0, Math.floor((mx - GLOW_RADIUS) / cellSize));
+      const maxCol = Math.min(cols - 1, Math.ceil((mx + GLOW_RADIUS) / cellSize));
+      const minRow = Math.max(0, Math.floor((my - GLOW_RADIUS) / cellSize));
+      const maxRow = Math.min(rows - 1, Math.ceil((my + GLOW_RADIUS) / cellSize));
+
+      for (let row = minRow; row <= maxRow; row++) {
+        for (let col = minCol; col <= maxCol; col++) {
           const cx = col * cellSize + cellSize / 2;
           const cy = row * cellSize + cellSize / 2;
-          const dist = Math.sqrt((cx - mx) ** 2 + (cy - my) ** 2);
+          const dx = cx - mx;
+          const dy = cy - my;
+          const distSq = dx * dx + dy * dy;
 
-          if (dist < GLOW_RADIUS) {
+          if (distSq < GLOW_R_SQ) {
+            const dist = Math.sqrt(distSq);
             const intensity = 1 - dist / GLOW_RADIUS;
-            const alpha = intensity * intensity * 0.35;
+            const alpha = intensity * intensity * 0.3;
             ctx.fillStyle = `rgba(0, 255, 0, ${alpha})`;
             ctx.fillText(grid[row * cols + col], cx, cy);
           }
         }
       }
 
-      requestAnimationFrame(draw);
+      raf = requestAnimationFrame(draw);
     };
 
-    const raf = requestAnimationFrame(draw);
+    let raf = requestAnimationFrame(draw);
 
     return () => {
       cancelAnimationFrame(raf);
