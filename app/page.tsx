@@ -4,6 +4,7 @@ import TechMarquee from "@/components/TechMarquee";
 import About from "@/components/About";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import Projects from "@/components/Projects";
+import FullstackProjects from "@/components/FullstackProjects";
 import Skills from "@/components/Skills";
 import GitHubActivity from "@/components/GitHubActivity";
 import Experience from "@/components/Experience";
@@ -56,6 +57,7 @@ export default function Home() {
         <About />
         <ArchitectureDiagram />
         <Projects />
+        <FullstackProjects />
         <Skills />
         <GitHubActivity />
         <Experience />

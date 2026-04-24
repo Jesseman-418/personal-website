@@ -10,7 +10,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      const sections = ["about", "projects", "skills", "experience", "contact"];
+      const sections = ["about", "projects", "fullstack", "skills", "experience", "contact"];
       for (const id of sections.reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 200) {
@@ -26,6 +26,7 @@ export default function Navbar() {
   const navLinks = [
     { label: "About", href: "#about" },
     { label: "Projects", href: "#projects" },
+    { label: "Fullstack", href: "#fullstack" },
     { label: "Skills", href: "#skills" },
     { label: "Journey", href: "#experience" },
     { label: "Contact", href: "#contact" },
